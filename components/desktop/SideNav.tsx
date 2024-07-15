@@ -58,7 +58,7 @@ const SideNav = () => {
       <Link href={user ? '/profile' : '/sign-in'} className='flex gap-[14px] items-center'>
       {user ? (
         <>
-          <img className='w-[38px] h-[38px] rounded-full' src={user.profileImageUrl} alt={user.fullName} />
+          <img className='w-[38px] h-[38px] rounded-full' src='/Profile.png' />
           <h1 className='text-txt text-[20px] font-light'>{user.fullName}</h1>
         </>
       ) : (
