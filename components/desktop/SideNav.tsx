@@ -1,4 +1,5 @@
 'use client'
+import { useUser } from '@clerk/nextjs';
 import React, { useState } from 'react';
 import { LuBookmark, LuMessageSquare, LuSquareDashedBottomCode } from 'react-icons/lu';
 import { RiNotification4Line } from "react-icons/ri";
@@ -19,6 +20,8 @@ const SideNav = () => {
   const getIconClass = (link: string) => {
     return selectedLink === link ? 'text-green' : 'text-txt';
   };
+ 
+  const { user } = useUser();
 
   return (
     <div>
@@ -52,10 +55,16 @@ const SideNav = () => {
         </div>
         <hr className='w-full pb-[14px] border-dashed border-lite-txt ' />
       </div>
-      <Link href='/profile' className='flex gap-[14px] items-center'>
-        <img className='w-[38px] h-[38px] rounded-full' src='/Profile.png' />
-        <h1 className='text-txt text-[20px] font-light'>Hassan Malik</h1>
-      </Link>
+      <Link href={user ? '/profile' : '/sign-in'} className='flex gap-[14px] items-center'>
+      {user ? (
+        <>
+          <img className='w-[38px] h-[38px] rounded-full' src={user.profileImageUrl} alt={user.fullName} />
+          <h1 className='text-txt text-[20px] font-light'>{user.fullName}</h1>
+        </>
+      ) : (
+        <p className='text-txt text-[20px] font-light'>Sign In</p>
+      )}
+    </Link>
     </div>
   )
 }
